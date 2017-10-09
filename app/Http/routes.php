@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::any('/api',function(){
+    return ['version'=>0.1];
+});
+/*注册api*/
+Route::any('api/signup','ApiController@signup');
+
+/*登录api*/
+Route::any('api/signin','ApiController@signin');
