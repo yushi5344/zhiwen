@@ -24,7 +24,8 @@ Route::any('api/signup','ApiController@signup');
 Route::any('api/signin','ApiController@signin');
 
 /*登出api*/
-
 Route::get('api/logout','ApiController@logout');
 
+/*问题api*/
+Route::resource('quest','QuestionController');
 Route::get('/test','ApiController@test');
