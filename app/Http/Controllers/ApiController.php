@@ -57,7 +57,7 @@ class ApiController extends Controller
             $user=User::where('username',$this->username)->first();
             if($user){
                 if($this->username==$user->username && $this->password==Crypt::decrypt($user->password)){
-                    session(['username'=>$user]);
+                    session(['user'=>$user]);
                     return ['status' => 1, 'msg' => '登陆成功'];
                 }else{
                     return ['status' => 0, 'msg' => '密码错误'];
@@ -67,8 +67,34 @@ class ApiController extends Controller
             }
         }
     }
+
+    /**
+     * @Desc:获取用户名和密码
+     * @author:guomin
+     * @date:2017-10-10 20:09
+     * @param $request
+     */
     private function get_username($request){
         $this->username=$request->input('username');
         $this->password=$request->input('password');
+    }
+
+    public function is_logged_in(){
+        return session('user')->id ? : false;
+    }
+
+    /**
+     * @Desc:登出
+     * @author:guomin
+     * @date:2017-10-10 20:16
+     */
+    public function logout(){
+        session()->flush();
+        return ['status'=>1,'msg'=>'退出成功'];
+    }
+
+
+    public function test(){
+        dd(session('user')->username);
     }
 }

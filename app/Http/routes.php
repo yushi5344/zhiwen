@@ -22,3 +22,9 @@ Route::any('api/signup','ApiController@signup');
 
 /*登录api*/
 Route::any('api/signin','ApiController@signin');
+
+/*登出api*/
+
+Route::get('api/logout','ApiController@logout');
+
+Route::get('/test','ApiController@test');
