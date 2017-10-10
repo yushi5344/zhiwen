@@ -11,14 +11,29 @@ use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
 {
+    private $user_id;//登录用户id
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @Desc:列表显示问题
+     * @author:guomin
+     * @date:2017-10-10 22:47
+     * @return array
      */
     public function index()
     {
-        return 1;
+        $question=Questions::orderBy('created_at')
+            ->paginate(3)
+            ->keyBy('id');
+        return [
+            'status'=>1,
+            'msg'=>$question
+        ];
+    }
+
+
+    public function create()
+    {
+        //TODO
     }
 
     /**
@@ -27,10 +42,10 @@ class QuestionController extends Controller
      * @date:2017-10-10 21:31
      * @return array
      */
-    public function create()
+    public function store(Request $request)
     {
-        $log=new ApiController();
-        if($log->is_logged_in()){
+        $this->getUserId();
+        if($this->user_id){
             $input=Input::all();
             $rules=[
                 'title'=>'required',
@@ -42,7 +57,7 @@ class QuestionController extends Controller
             ];
             $validator=Validator::make($input,$rules,$messages);
             if($validator->passes()){
-                $input['user_id']=$log->is_logged_in();
+                $input['user_id']=$this->user_id;
                 $re=Questions::create($input);
                 if($re){
                     $data=[
@@ -65,36 +80,62 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @Desc:单条显示问题
+     * @author:guomin
+     * @date:2017-10-10 22:48
+     * @param $id
+     * @return array
      */
     public function show($id)
     {
-        //
+        $question=Questions::find($id);
+        if($question){
+           $data=[
+               'status'=>1,
+               'msg'=>$question
+           ];
+        }else{
+            $data=[
+                'status'=>0,
+                'msg'=>'问题不存在'
+            ];
+        }
+        return $data;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @Desc:问题编辑
+     * @author:guomin
+     * @date:2017-10-10 22:48
+     * @param $id
+     * @return array
      */
     public function edit($id)
     {
-        //
+        $this->getUserId();
+        if($this->user_id){
+            $question=Questions::find($id);
+            if($question->user_id!=$this->user_id){
+                return [
+                    'status'=>0,
+                    'msg'=>'permission denied'
+                ];
+            }
+            if($question){
+                $data=[
+                    'status'=>1,
+                    'msg'=>$question
+                ];
+            }else{
+                $data=[
+                    'status'=>0,
+                    'msg'=>'问题不存在'
+                ];
+            }
+            return $data;
+        }else{
+            return ['status'=>0,'msg'=>'请登录'];
+        }
     }
 
     /**
@@ -106,7 +147,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // TODO
     }
 
     /**
@@ -117,6 +158,48 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //TODO RESTful路由destory方法只有delete可以访问
+        //只有管理员和提问者可以删除
+        //删除后这个问题下的回答也删除
+        $this->getUserId();
+        if($this->user_id){
+            $question=Questions::find($id);
+            if($question){
+                if($question->user_id==$this->user_id){
+                    $re=Questions::destroy($id);
+                    if($re){
+                        return [
+                            'status'=>1,
+                            'msg'=>'删除成功'
+                        ];
+                    }else{
+                        return [
+                            'status'=>0,
+                            'msg'=>'删除失败'
+                        ];
+                    }
+                }else{
+                    return [
+                        'status'=>0,
+                        'msg'=>'permission denied'
+                    ];
+                }
+            }
+        }else{
+            return [
+                'status'=>0,
+                'msg'=>'请登录'
+            ];
+        }
+    }
+
+    /**
+     * @Desc:获取登录用户的id
+     * @author:guomin
+     * @date:2017-10-10 22:49
+     */
+    private function getUserId(){
+        $log=new ApiController();
+        $this->user_id=$log->is_logged_in();
     }
 }
