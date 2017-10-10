@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Crypt;
 class ApiController extends Controller
 {
     private $username;
-    private $passoword;
+    private $password;
 
     /**
      * @Desc:注册api
@@ -30,7 +30,7 @@ class ApiController extends Controller
                 return ['status'=>0,'msg'=>'用户名已注册'];
             }else{
                 $user=[];
-                $user['password']=Crypt::encrypt($this->passoword);
+                $user['password']=Crypt::encrypt($this->password);
                 $user['username']=$this->username;
                 $re=User::create($user);
                 if($re){
@@ -42,8 +42,33 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * @Desc:登录api
+     * @author:guomin
+     * @date:2017-10-10 19:59
+     * @param Request $request
+     * @return array
+     */
+    public function signin(Request $request){
+        $this->get_username($request);
+        if(!$request->has('username')||!$request->has('password')) {
+            return ['status' => 0, 'msg' => '用户名或者密码不能为空'];
+        }else{
+            $user=User::where('username',$this->username)->first();
+            if($user){
+                if($this->username==$user->username && $this->password==Crypt::decrypt($user->password)){
+                    session(['username'=>$user]);
+                    return ['status' => 1, 'msg' => '登陆成功'];
+                }else{
+                    return ['status' => 0, 'msg' => '密码错误'];
+                }
+            }else{
+                return ['status' => 0, 'msg' => '用户不存在'];
+            }
+        }
+    }
     private function get_username($request){
         $this->username=$request->input('username');
-        $this->passoword=$request->input('password');
+        $this->password=$request->input('password');
     }
 }
