@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Route::any('/api',function(){
     return ['version'=>0.1];
