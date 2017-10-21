@@ -1,68 +1,49 @@
 <!doctype html>
-<html lang="zh" ng-app="zhiwen">
+<html lang="zh-cn" ng-app="zhiwen">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>知问</title>
     <link rel="stylesheet" href="{{asset('public/css/base.css')}}">
     <link rel="stylesheet" href="{{asset('public/node_modules/normalize-css/normalize.css')}}">
+    <link rel="stylesheet" href="{{asset('public/node_modules/bootstrap/dist/css/bootstrap.css')}}">
     <script src="{{asset('public/node_modules/jquery/dist/jquery.js')}}"></script>
     <script src="{{asset('public/node_modules/angular/angular.js')}}"></script>
+    <script src="{{asset('public/node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
     <script src="{{asset('public/node_modules/angular-ui-router/release/angular-ui-router.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/js/base.js')}}"></script>
+    <script src="{{asset('public/js/layer/layer.js')}}"></script>
+    <script src="{{asset('public/js/base.js')}}"></script>
 </head>
 <body>
-<div class="navbar clearfix">
-    <div class="fl">
-        <div class="navbar-item brand">知问</div>
-        <div class="navbar-item">
-            <input type="text">
-        </div>
-    </div>
-    <div class="fr">
-        <div class="navbar-item" ui-sref="home">首页</div>
-        <div class="navbar-item" ui-sref="login">登录</div>
-        <div class="navbar-item" ui-sref="signup">注册</div>
-    </div>
-</div>
-<div class="page">
-    <div ui-view></div>
-</div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">知问</a>
+            </div>
 
-
-</body>
-<script type="text/ng-template" id="home.tpl">
-<div class="home container">
-    首页
-    sdf;sfj;lsdfjl;skdfjkl;sfdjkl;fj;asdjfkl;sfjksdjfklsdjfklsdjfklds
-</div>
-</script>
-<script type="text/ng-template" id="login.tpl">
-    <div class="login container">
-        登录
-    </div>
-</script>
-
-<script type="text/ng-template" id="signup.tpl">
-    <div ng-controller="SignupController" class="home container">
-        <div class="card">
-            <h1>注册</h1>
-            <{ User.signup_data }>
-            <form name="signup_form" ng-submit="User.signup()">
-                <div>
-                    <label for="">用户名：</label>
-                    <input type="text" ng-minlength="4" ng-maxlength="20" name="username" required ng-model="User.signup_data.username">
-                    <div class="input-error-set">
-                        <div ng-if="signup_form.username.$error.required">用户名必填</div>
+            <form action="" class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default">提交</button>
                     </div>
                 </div>
-                <div>
-                    <label for="">密码：</label>
-                    <input type="text" ng-minlength="6" name="password" required ng-model="User.signup_data.password">
-                </div>
-
-                <button type="submit" ng-disabled="signup_form.$invalid">注册</button>
             </form>
+            <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#" ui-sref="home">首页</a></li>
+            <li><a href="#" ui-sref="login">登录</a></li>
+            <li><a href="#" ui-sref="sign">注册</a></li>
+            </ul>
         </div>
+    </nav>
+    <div class="container">
+        <div ui-view></div>
     </div>
-</script>
+</body>
+{{csrf_field()}}
 </html>
+<script>
+    $('.navbar-right li').click(function(){
+        $('.navbar-right li').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>

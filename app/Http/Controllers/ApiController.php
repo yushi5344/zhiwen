@@ -22,7 +22,7 @@ class ApiController extends Controller
      */
     public function signup(Request $request){
         $this->get_username($request);
-        if(!$request->has('username')||!$request->has('password')){
+        if(!$this->username||!$this->password){
             return ['status'=>0,'msg'=>'用户名或者密码不能为空'];
         }else{
             $username=User::where('username',$this->username)->value('username');
@@ -91,6 +91,24 @@ class ApiController extends Controller
     public function logout(){
         session()->flush();
         return ['status'=>1,'msg'=>'退出成功'];
+    }
+
+
+    public function UserExist(Request $request){
+        $this->get_username($request);
+        $user=User::where('username',$this->username)->first();
+        if($user){
+            $data=[
+                'status'=>2,
+                'msg'=>'此用户名已存在'
+            ];
+        }else{
+            $data=[
+                'status'=>1,
+                'msg'=>'用户名可以注册'
+            ];
+        }
+        return json_encode($data,JSON_UNESCAPED_UNICODE);
     }
 
 

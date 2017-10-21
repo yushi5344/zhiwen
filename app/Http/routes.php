@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::any('/api',function(){
     return ['version'=>0.1];
 });
+/*检查用户名是否存在*/
+Route::post('api/user/exists','ApiController@UserExist');
 /*注册api*/
 Route::any('api/signup','ApiController@signup');
 

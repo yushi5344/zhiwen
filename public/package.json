@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^5.0.0",
+    "bootstrap-sass": "^3.0.0"
+  },
+  "name": "zhiwen",
+  "description": "zhiwen",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yushi5344/zhiwen.git"
+  },
+  "keywords": [
+    "zhiwen",
+    "laravel"
+  ],
+  "author": "yushi5344",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yushi5344/zhiwen/issues"
+  },
+  "homepage": "https://github.com/yushi5344/zhiwen#readme",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-ui-router": "^0.4.3",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "normalize-css": "^2.3.1"
+  }
+}
