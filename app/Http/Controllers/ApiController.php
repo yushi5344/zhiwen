@@ -80,7 +80,12 @@ class ApiController extends Controller
     }
 
     public function is_logged_in(){
-        return session('user')->id ? : false;
+        if(session('user')){
+            return session('user')->id;
+        }else{
+            return false;
+        }
+
     }
 
     /**
@@ -90,7 +95,7 @@ class ApiController extends Controller
      */
     public function logout(){
         session()->flush();
-        return ['status'=>1,'msg'=>'退出成功'];
+        return redirect('/');
     }
 
 

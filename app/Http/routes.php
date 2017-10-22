@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    if(session('user')){
+        $session_id= session('user')->id;
+    }else{
+        $session_id=false;
+    }
+    return view('index',compact('session_id'));
 });
 Route::any('/api',function(){
     return ['version'=>0.1];
@@ -29,5 +34,5 @@ Route::any('api/signin','ApiController@signin');
 Route::get('api/logout','ApiController@logout');
 
 /*问题api*/
-Route::resource('quest','QuestionController');
+Route::resource('api/quest','QuestionController');
 Route::get('/test','ApiController@test');

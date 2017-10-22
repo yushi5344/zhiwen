@@ -73,9 +73,9 @@ class QuestionController extends Controller
                     'msg'=>$error
                 ];
             }
-            return $data;
+            return json_encode($data,256);
         }else{
-            return ['status'=>0,'msg'=>'请登录'];
+            return json_encode(['status'=>2,'msg'=>'请登录'],256);
         }
     }
 
@@ -134,7 +134,7 @@ class QuestionController extends Controller
             }
             return $data;
         }else{
-            return ['status'=>0,'msg'=>'请登录'];
+            return ['status'=>2,'msg'=>'请登录'];
         }
     }
 

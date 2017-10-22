@@ -19,19 +19,25 @@
             <div class="navbar-header">
                 <a href="#" class="navbar-brand">知问</a>
             </div>
-
-            <form action="" class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default">提交</button>
+            <div ng-controller="QuestionAddController">
+                <form class="navbar-form navbar-left" ng-submit="question.go_add_question()">
+                    <div class="form-group col-sm-10 col-lg-7">
+                        <input type="text" class="form-control" ng-model="question.new_question.title">
                     </div>
-                </div>
-            </form>
+                    <div class="col-lg-offset-1 col-lg-2 col-sm-2">
+                        <button type="submit" class="btn btn-primary">提问</button>
+                    </div>
+                </form>
+            </div>
+
             <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="#" ui-sref="home">首页</a></li>
-            <li><a href="#" ui-sref="login">登录</a></li>
-            <li><a href="#" ui-sref="sign">注册</a></li>
+            @if($session_id)
+                 <li><a href="{{url('api/logout')}}">退出</a></li>
+            @else
+                <li><a href="#" ui-sref="login">登录</a></li>
+                <li><a href="#" ui-sref="sign">注册</a></li>
+            @endif
             </ul>
         </div>
     </nav>
