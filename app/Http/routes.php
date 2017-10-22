@@ -33,6 +33,9 @@ Route::any('api/signin','ApiController@signin');
 /*登出api*/
 Route::get('api/logout','ApiController@logout');
 
+
+/*时间线*/
+Route::post('api/timeline','CommonController@timeline');
 /*问题api*/
 Route::resource('api/quest','QuestionController');
 Route::get('/test','ApiController@test');

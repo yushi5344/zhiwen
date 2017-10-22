@@ -1,1 +1,29 @@
-<div>主页</div>
+
+<div class="row" style="margin-bottom: 10px;" ng-repeat=" row in timeline.data">
+    <div class="col-sm-8" style="border: 1px solid #ccc; border-radius: 2px;" >
+        <div class="h5" ng-if="row.question_id">[:row.user.username:]添加了该回答</div>
+        <div class="h5" ng-if="!row.question_id">[:row.user.username:]添加了该提问</div>
+        <div class="h2">[:row.title:]</div>
+        <div class="row">
+            <div class="col-lg-1" style="margin-right: 0px;">
+                <img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;">
+            </div>
+            <div class="col-lg-5"  style="padding-left: 0px;">[:row.user.username:] &nbsp;&nbsp;[:row.user.intro:]</div>
+        </div>
+        <div class="media">
+            <a href="#" class="media-left">
+                <img src="./public/images/a.jpg" alt="">
+            </a>
+            <div class="media-body" ng-if="!row.question_id">
+                [:row.desc:]
+            </div>
+            <div class="media-body" ng-if="row.question_id">
+                [:row.content:]
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

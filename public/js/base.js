@@ -12,7 +12,8 @@ m.config([
         $stateProvider
             .state('home',{
                 url:'/home',
-                templateUrl:'resources/views/home.blade.php'
+                templateUrl:'resources/views/home.blade.php',
+                controller:'HomeController'
             })
             .state('login',{
                 url:'/login',
@@ -91,21 +92,6 @@ m.service('UserService',['$http','$state',function($http,$state){
         });
     }
 }]);
-//注册controller
-m.controller('UserSignController',['$scope','UserService',function($scope,UserService){
-    $scope.user=UserService;
-    $scope.$watch(function(){
-        return UserService.sign_data;
-    },function(n,o){
-        if (n.username!= o.username){
-            UserService.username_exist();
-        }
-    },true);
-}]);
-//登录控制器
-m.controller('UserLoginController',['$scope','UserService',function($scope,UserService){
-    $scope.user=UserService;
-}]);
 //提问服务
 m.service('QuestionService',['$http','$state',function($http,$state){
     var me=this;
@@ -132,7 +118,43 @@ m.service('QuestionService',['$http','$state',function($http,$state){
         });
     }
 }]);
+m.service('TimelineService',['$http',function($http){
+    var me=this;
+    me.data=[];
+    me.get=function(conf){
+        $http({
+            method:'post',
+            url:'api/timeline',
+            data:conf
+        }).then(function(response){
+            if(response.data.status){
+                me.data=me.data.concat(response.data.data);
+            }
+        });
+    }
+}]);
+//注册controller
+m.controller('UserSignController',['$scope','UserService',function($scope,UserService){
+    $scope.user=UserService;
+    $scope.$watch(function(){
+        return UserService.sign_data;
+    },function(n,o){
+        if (n.username!= o.username){
+            UserService.username_exist();
+        }
+    },true);
+}]);
+//登录控制器
+m.controller('UserLoginController',['$scope','UserService',function($scope,UserService){
+    $scope.user=UserService;
+}]);
+
 //添加提问控制器
 m.controller('QuestionAddController',['$scope','QuestionService',function($scope,QuestionService){
     $scope.question=QuestionService;
+}]);
+//首页时间线
+m.controller('HomeController',['$scope','TimelineService',function($scope,TimelineService){
+    $scope.timeline=TimelineService;
+    TimelineService.get();
 }]);
