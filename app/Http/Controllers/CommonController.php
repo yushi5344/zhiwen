@@ -12,15 +12,21 @@ class CommonController extends Controller
 {
     //
     public function timeline(){
+        //定义每页显示4条
+        $pagesize=4;
+        //当前页数
+        $page=$_POST['page'];
+        $skip=($page-1)*$pagesize;
+        //第一页 0  第二页
         $questions=Questions::orderBy('created_at','desc')
             ->with('user')
-            ->skip(0)
-            ->take(10)
+            ->skip($skip)
+            ->take($pagesize)
             ->get();
         $answers=Answers::orderBy('created_at','desc')
             ->with('user')
-            ->skip(0)
-            ->take(10)
+            ->skip($skip)
+            ->take($pagesize)
             ->get();
         $questions=collect($questions->toArray());
         $answers=$answers->toArray();

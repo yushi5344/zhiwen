@@ -121,15 +121,26 @@ m.service('QuestionService',['$http','$state',function($http,$state){
 m.service('TimelineService',['$http',function($http){
     var me=this;
     me.data=[];
+    me.current_page=1;
     me.get=function(conf){
+        if(me.pending) return;
+        me.pending=true;
+        conf=conf||{page:me.current_page}
         $http({
             method:'post',
             url:'api/timeline',
-            data:conf
+            data: $.param(conf),
+            headers:{'Content-type':'application/x-www-form-urlencoded'}
         }).then(function(response){
             if(response.data.status){
-                me.data=me.data.concat(response.data.data);
+                if (response.data.data.length){
+                    me.data=me.data.concat(response.data.data);
+                    me.current_page++;
+                }else{
+                    me.no_more_data=true;
+                }
             }
+            me.pending=false;
         });
     }
 }]);
@@ -157,4 +168,10 @@ m.controller('QuestionAddController',['$scope','QuestionService',function($scope
 m.controller('HomeController',['$scope','TimelineService',function($scope,TimelineService){
     $scope.timeline=TimelineService;
     TimelineService.get();
+    $win=$(window);
+    $win.on('scroll',function(){
+        if($win.scrollTop()-($(document).height()-$win.height())>-30){
+            TimelineService.get();
+        }
+    });
 }]);

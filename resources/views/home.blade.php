@@ -23,7 +23,21 @@
         </div>
     </div>
 </div>
+<div class="col-sm-8" ng-if="timeline.pending">
+    <nav aria-label="..." >
+        <ul class="pager">
+            <li>加载中...</li>
+        </ul>
+    </nav>
 
+</div>
+<div class="col-sm-8" ng-if="timeline.no_more_data">
+    <nav aria-label="..." >
+        <ul class="pager">
+            <li>没有更多数据啦</li>
+        </ul>
+    </nav>
+</div>
 
 
 
