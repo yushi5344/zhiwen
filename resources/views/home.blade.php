@@ -6,7 +6,7 @@
         <div class="h2">[:row.title:]</div>
         <div class="row">
             <div class="col-lg-1" style="margin-right: 0px;">
-                <img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;">
+                <a href="#" ui-sref="user({id:row.user.id})"><img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;"></a>
             </div>
             <div class="col-lg-5"  style="padding-left: 0px;">[:row.user.username:] &nbsp;&nbsp;[:row.user.intro:]</div>
         </div>

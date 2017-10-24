@@ -12,6 +12,10 @@
     <script src="{{asset('public/node_modules/angular-ui-router/release/angular-ui-router.js')}}"></script>
     <script src="{{asset('public/js/layer/layer.js')}}"></script>
     <script src="{{asset('public/js/base.js')}}"></script>
+    <script src="{{asset('public/js/user.js')}}"></script>
+    <script src="{{asset('public/js/question.js')}}"></script>
+    <script src="{{asset('public/js/common.js')}}"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -47,9 +51,3 @@
 </body>
 {{csrf_field()}}
 </html>
-<script>
-    $('.navbar-right li').click(function(){
-        $('.navbar-right li').removeClass('active');
-        $(this).addClass('active');
-    });
-</script>
