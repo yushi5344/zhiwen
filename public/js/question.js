@@ -8,6 +8,7 @@ var q=angular.module('question',[]);
 q.service('QuestionService',['$http','$state',function($http,$state){
     var me=this;
     me.new_question={};
+    me.question_data={};
     me.go_add_question=function(){
         $state.go('question.add');
     }
@@ -26,6 +27,17 @@ q.service('QuestionService',['$http','$state',function($http,$state){
                 $state.go('home');
             }else{
                 layer.msg(response.data.msg);
+            }
+        });
+    }
+    me.questionRead=function(id){
+        $http({
+            method:'get',
+            url:'/api/quest/read/'+id,
+            headers: {'Content-type':'application/x-www-form-urlencoded'}
+        }).then(function(resp){
+            if(resp.data.status==1){
+                me.question_data=resp.data.data;
             }
         });
     }

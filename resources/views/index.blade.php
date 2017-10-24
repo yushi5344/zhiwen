@@ -14,6 +14,7 @@
     <script src="{{asset('public/js/base.js')}}"></script>
     <script src="{{asset('public/js/user.js')}}"></script>
     <script src="{{asset('public/js/question.js')}}"></script>
+    <script src="{{asset('public/js/answer.js')}}"></script>
     <script src="{{asset('public/js/common.js')}}"></script>
 
 </head>

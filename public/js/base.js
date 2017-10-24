@@ -1,5 +1,5 @@
 " use strict"
-var m=angular.module('zhiwen',['ui.router','user','question','common']);
+var m=angular.module('zhiwen',['ui.router','user','question','common','answer']);
 m.config([
     '$interpolateProvider',
     '$stateProvider',

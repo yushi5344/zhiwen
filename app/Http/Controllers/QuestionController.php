@@ -202,4 +202,11 @@ class QuestionController extends Controller
         $log=new ApiController();
         $this->user_id=$log->is_logged_in();
     }
+
+
+    public function Readquest($id){
+        $question=Questions::where('user_id',$id)->get();
+        $question=$question->toArray();
+        return json_encode(['status'=>1,'data'=>$question]);
+    }
 }

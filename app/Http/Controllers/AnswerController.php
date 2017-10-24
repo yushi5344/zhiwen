@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Model\Answers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -83,4 +84,11 @@ class AnswerController extends Controller
     {
         //
     }
+
+    public function Readanswer($id){
+        $answer=Answers::where('user_id',$id)->get();
+        $answer=$answer->toArray();
+        return json_encode(['status'=>1,'data'=>$answer],JSON_UNESCAPED_UNICODE);
+    }
+
 }

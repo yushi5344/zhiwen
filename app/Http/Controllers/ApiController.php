@@ -116,7 +116,10 @@ class ApiController extends Controller
         return json_encode($data,JSON_UNESCAPED_UNICODE);
     }
 
-
+    public function ReadUser($id){
+        $user=User::find($id);
+        return ['state'=>1,'data'=>$user];
+    }
     public function test(){
         dd(session('user')->username);
     }

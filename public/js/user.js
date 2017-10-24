@@ -3,12 +3,13 @@
  */
 "use strict"
 
-var u=angular.module('user',[]);
+var u=angular.module('user',['question','answer']);
 //登录注册服务
 u.service('UserService',['$http','$state',function($http,$state){
     var me=this;
     me.sign_data={};
     me.login_data={};
+    me.user_data={};
     me.sign=function(){
         $http({
             method:'post',
@@ -57,6 +58,18 @@ u.service('UserService',['$http','$state',function($http,$state){
 
         });
     }
+    me.userRead=function(id){
+        $http({
+            method:'get',
+            data: $.param({user_id:id}),
+            url:'/api/user/read/'+id,
+            headers:{'Content-type':'application/x-www-form-urlencoded'}
+        }).then(function(response){
+            if (response.data.state){
+                me.user_data=response.data.data;
+            }
+        });
+    }
 }]);
 //注册controller
 u.controller('UserSignController',['$scope','UserService',function($scope,UserService){
@@ -74,7 +87,17 @@ u.controller('UserLoginController',['$scope','UserService',function($scope,UserS
     $scope.user=UserService;
 }]);
 //个人中心
-u.controller('UserCenterController',['$scope','UserService','$stateParams',function($scope,UserService,$stateParams){
-    $scope.user=UserService;
-    console.log('$stateParams',$stateParams);
+u.controller('UserCenterController',['$scope',
+    'UserService',
+    '$stateParams',
+    'QuestionService',
+    'AnswerService',
+    function($scope,UserService,$stateParams,QuestionService,AnswerService){
+        $scope.user=UserService;
+        $scope.userquest=QuestionService;
+        $scope.useransw=AnswerService;
+        UserService.userRead($stateParams.id);
+        QuestionService.questionRead($stateParams.id);
+        AnswerService.answerRead($stateParams.id);
+    //console.log('$stateParams',$stateParams);
 }]);

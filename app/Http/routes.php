@@ -33,7 +33,16 @@ Route::any('api/signin','ApiController@signin');
 /*登出api*/
 Route::get('api/logout','ApiController@logout');
 
+/*读取用户信息*/
+Route::get('api/user/read/{id}','ApiController@ReadUser');
 
+
+/*读取用户问题*/
+Route::get('api/quest/read/{id}','QuestionController@Readquest');
+
+
+/*读取用户问题*/
+Route::get('api/user/answer/read/{id}','AnswerController@Readanswer');
 /*时间线*/
 Route::post('api/timeline','CommonController@timeline');
 /*问题api*/
