@@ -88,11 +88,13 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question=Questions::find($id);
+        $question=new Questions();
+        $quest=$question->with('answers_with_userinfo')->find($id);
+        //$question=Questions::find($id)->with('answers');
         if($question){
            $data=[
                'status'=>1,
-               'msg'=>$question
+               'data'=>$quest
            ];
         }else{
             $data=[
@@ -100,7 +102,7 @@ class QuestionController extends Controller
                 'msg'=>'问题不存在'
             ];
         }
-        return $data;
+        return json_encode($data,256);
     }
 
     /**

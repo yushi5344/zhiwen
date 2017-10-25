@@ -3,7 +3,7 @@
     <div class="col-sm-8" style="border: 1px solid #ccc; border-radius: 2px;" >
         <div class="h5" ng-if="row.question_id">[:row.user.username:]添加了该回答</div>
         <div class="h5" ng-if="!row.question_id">[:row.user.username:]添加了该提问</div>
-        <div class="h2">[:row.title:]</div>
+        <div class="h2"><a href="" ui-sref="question.detail({id:row.id})">[:row.title:]</a></div>
         <div class="row">
             <div class="col-lg-1" style="margin-right: 0px;">
                 <a href="#" ui-sref="user({id:row.user.id})"><img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;"></a>

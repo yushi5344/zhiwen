@@ -27,12 +27,18 @@ m.config([
             .state('question',{
                 url:'/question',
                 abstract:true,
-                template:'<div ui-view></div>'
+                template:'<div ui-view></div>',
+                controller:'QuestionController'
             })
             .state('question.add',{
                 url:'/add',
                 templateUrl:'resources/views/question_add.blade.php',
                 controller:'QuestionAddController'
+            })
+            .state('question.detail',{
+                url:'/detail/{id}',
+                templateUrl:'resources/views/question_detail.blade.php',
+                controller:'QuestionDetailController'
             })
             .state('user',{
                 url:'/user/{id}',
