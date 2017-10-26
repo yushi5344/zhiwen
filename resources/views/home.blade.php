@@ -18,7 +18,8 @@
                 [:row.desc:]
             </div>
             <div class="media-body" ng-if="row.question_id">
-                [:row.content:]
+                <h4><a href="" ui-sref="question.detail({id:row.question.id})">[:row.question.title:]</a></h4>
+               [:row.content:]
             </div>
         </div>
     </div>

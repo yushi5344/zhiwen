@@ -5,10 +5,10 @@
 var c=angular.module('common',[]);
 c.service('TimelineService',['$http',function($http){
     var me=this;
-    me.data=[];
-    me.current_page=1;
+   // me.data=[];
+    //me.current_page=1;
     me.get=function(conf){
-        if(me.pending) return;
+        if(me.pending||me.no_more_data) return;
         me.pending=true;
         conf=conf||{page:me.current_page}
         $http({
@@ -28,11 +28,17 @@ c.service('TimelineService',['$http',function($http){
             me.pending=false;
         });
     }
+    me.reset_state=function(){
+        me.data=[];
+        me.current_page=1;
+        me.no_more_data=0;
+    }
 }]);
 
 //首页时间线
 c.controller('HomeController',['$scope','TimelineService',function($scope,TimelineService){
     $scope.timeline=TimelineService;
+    TimelineService.reset_state();
     TimelineService.get();
     var $win=$(window);
     $win.on('scroll',function(){
