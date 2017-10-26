@@ -46,4 +46,7 @@ c.controller('HomeController',['$scope','TimelineService',function($scope,Timeli
             TimelineService.get();
         }
     });
+    $scope.show_comments=function(elem){
+        console.log(elem);
+    }
 }]);
