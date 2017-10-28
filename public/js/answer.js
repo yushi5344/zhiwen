@@ -17,4 +17,11 @@ a.service('AnswerService',['$http',function($http){
             }
         });
     }
+    me.count_vote=function(answers){
+        for (var i=0;i<answers.length;i++){
+            var item=answers[i];
+            if(!item['question_id']) continue;
+
+        }
+    }
 }]);

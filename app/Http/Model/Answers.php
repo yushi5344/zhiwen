@@ -11,7 +11,7 @@ class Answers extends Model
 
     public function users(){
         return $this
-            ->belongsToMany('App\Http\Model\User')
+            ->belongsToMany('App\Http\Model\User','answer_user','answer_id')
             ->withPivot('vote')
             ->withTimestamps();
     }

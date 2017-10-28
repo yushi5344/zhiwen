@@ -26,6 +26,7 @@ class CommonController extends Controller
         $answers=Answers::orderBy('created_at','desc')
             ->with('question')
             ->with('user')
+            ->with('users')
             ->skip($skip)
             ->take($pagesize)
             ->get();

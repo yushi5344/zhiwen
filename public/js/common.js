@@ -46,7 +46,15 @@ c.controller('HomeController',['$scope','TimelineService',function($scope,Timeli
             TimelineService.get();
         }
     });
-    $scope.show_comments=function(elem){
-        console.log(elem);
+}]);
+
+c.directive('commentShow',[function(){
+    return {
+        restrict:'A',
+        link:function(scope,elem,attr){
+            $(elem).click(function(){
+                $(this).parent().next().toggle();
+            });
+        }
     }
 }]);

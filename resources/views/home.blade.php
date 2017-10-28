@@ -26,8 +26,7 @@
             <button type="button" class="btn btn-primary btn-xs">
                 <span class="glyphicon glyphicon-triangle-bottom"></span>
             </button>
-            <a href="" class="btn-comment">ssss</a>
-            <button type="button" class="btn btn-link btn-comments" ng-click="show_comments($event.target)">评论</button>
+            <button type="button" class="btn btn-link btn-comments" comment-show>评论</button>
         </div>
         <div style="border: 1px solid #ccc;margin-bottom: 10px;display: none;" ng-if="row.question_id">
             <div>
@@ -44,42 +43,6 @@
                 </div>
                 <div style="border-bottom: 1px solid #ccc; width: 90%;" ></div>
             </div>
-            <div>
-                <div class="row">
-                    <div class="col-lg-1" style="margin-right: 0px;">
-                        <a href="#" ui-sref="user({id:row.user.id})"><img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;"></a>
-                    </div>
-                    <div class="col-lg-5"  style="padding-left: 0px;">[:row.user.username:] &nbsp;&nbsp;[:row.user.intro:]</div>
-                </div>
-                <div class="media">
-                    <div class="media-body">
-                        <p>sdfjlsjfdklsdjfklsdjfklsdjfkldsjfkldsfjkldsfjdsljfklsdjfldsjflsdjfkkkkkkkkkkkkkkkkkkkkkkkkkkksd</p>
-                    </div>
-                </div>
-                <div style="border-bottom: 1px solid #ccc; width: 90%;" ></div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-lg-1" style="margin-right: 0px;">
-                        <a href="#" ui-sref="user({id:row.user.id})"><img src="./public/images/a.jpg" alt="" class="img-rounded"style="width: 32px;height: 32px;"></a>
-                    </div>
-                    <div class="col-lg-5"  style="padding-left: 0px;">[:row.user.username:] &nbsp;&nbsp;[:row.user.intro:]</div>
-                </div>
-                <div class="media">
-                    <div class="media-body">
-                        <p>sdfjlsjfdklsdjfklsdjfklsdjfkldsjfkldsfjkldsfjdsljfklsdjfldsjflsdjfkkkkkkkkkkkkkkkkkkkkkkkkkkksd</p>
-                    </div>
-                </div>
-                <div style="border-bottom: 1px solid #ccc; width: 90%;" ></div>
-            </div>
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
